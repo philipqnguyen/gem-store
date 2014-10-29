@@ -1,7 +1,7 @@
 (function() {
-  // var app = angular.module('store-directives', []);
+  var app = angular.module('StoreDirectives', []);
 
-  gemStoreDirectives.directive('productGallery', function(){
+  app.directive('productGallery', function(){
     return {
       restrict: 'E',
       templateUrl: 'product-gallery.html',
@@ -15,7 +15,7 @@
     };
   });
 
-  gemStoreDirectives.directive("productTabs", function() {
+  app.directive("productTabs", function() {
     return {
       restrict: "E",
       templateUrl: "product-tabs.html",
@@ -34,14 +34,14 @@
     };
   });
 
-  gemStoreDirectives.directive('productDescription', function () {
+  app.directive('productDescription', function () {
     return {
       restrict: 'E',
       templateUrl: 'product-description.html'
     };
   });
 
-  gemStoreDirectives.directive("productSpecs", function () {
+  app.directive("productSpecs", function () {
     return {
       restrict: "A",
       templateUrl: "product-specs.html"

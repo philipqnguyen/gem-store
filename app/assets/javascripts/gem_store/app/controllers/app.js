@@ -1,18 +1,18 @@
 (function () {
   // var app = angular.module('gemStore', ['store-directives']);
 
-  app.controller('StoreController', function () {
+  app.controller('StoreController', ['$scope', function () {
     this.products = gems;
-  });
+  }]);
 
-  app.controller('ReviewController', function () {
-    this.review = {};
-    this.addReview = function (product) {
-      this.review.createdOn = Date.now();
-      product.reviews.push(this.review);
-      this.review = {};
+  app.controller('ReviewController', ['$scope', function ($scope) {
+    $scope.review = {};
+    $scope.addReview = function (product) {
+      $scope.review.createdOn = Date.now();
+      product.reviews.push($scope.review);
+      $scope.review = {};
     };
-  });
+  }]);
 
   var gems = [{
     name: 'Azurite',
