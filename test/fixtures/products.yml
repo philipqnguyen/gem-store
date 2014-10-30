@@ -8,6 +8,7 @@ one:
   rarity: 7
   color: '#CCC'
   faces: 14
+  category_id: 2
 
 two:
   name: 'Diamond'
@@ -17,3 +18,4 @@ two:
   rarity: 9
   color: '#CCC'
   faces: 20
+  category_id: 2
