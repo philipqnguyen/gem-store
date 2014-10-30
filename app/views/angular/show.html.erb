@@ -1,9 +1,11 @@
 <!--  Product Container  -->
-<div class="list-group-item" ng-repeat="product in store.products">
-  <h3>{{product.name}} <em class="pull-right">{{product.price | currency}}</em></h3>
+<div data-ng-controller="StoreController" data-ng-init="index()">
+  <div class="list-group-item" ng-repeat="product in products">
+    <h3>{{product.name}} <em class="pull-right">{{product.price | currency}}</em></h3>
 
-  <!-- Image Gallery  -->
-  <product-gallery></product-gallery>
+    <!-- Image Gallery  -->
+    <product-gallery></product-gallery>
 
-  <product-tabs></product-tabs>
+    <product-tabs></product-tabs>
+  </div>
 </div>
