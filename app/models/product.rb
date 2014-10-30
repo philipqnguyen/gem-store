@@ -5,4 +5,5 @@ class Product < ActiveRecord::Base
   validates :price, numericality: true
 
   belongs_to :category
+  has_many :reviews
 end

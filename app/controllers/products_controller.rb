@@ -10,7 +10,17 @@ class ProductsController < ApplicationController
     if product.save
       render json: product, status: 201, location: product_path(product)
     else
-      render json: product.error, status: 422
+      render json: product.errors, status: 422
+    end
+  end
+
+  def show
+    product = Product.find(params[:id])
+
+    if product
+      render json: product, status: 200, location: product_path(product)
+    else
+      render json: product.errors, status: 422
     end
   end
 
