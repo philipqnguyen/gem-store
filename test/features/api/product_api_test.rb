@@ -32,7 +32,7 @@ class ProductApi < ActionDispatch::IntegrationTest
     response.content_type.must_equal Mime::JSON
     product = JSON.parse(response.body, symbolize_names: true)
 
-    # response.location.must_equal product_path(product[:id])
+    response.location.must_equal product_path(product[:id])
     product[:name].must_equal 'Tahoe shell'
     product[:description].must_equal 'Beautiful shell from Lake Tahoe'
     product[:shine].must_equal 8

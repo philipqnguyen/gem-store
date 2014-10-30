@@ -8,7 +8,7 @@ class ProductsController < ApplicationController
     product = Product.new(product_params)
 
     if product.save
-      render json: product, status: 201, location: product
+      render json: product, status: 201, location: product_path(product)
     else
       render json: product.error, status: 422
     end
