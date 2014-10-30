@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: 'Azurite'
+  description: 'Some gems have hidden qualities beyond their luster.'
+  shine: 8
+  price: 110.50
+  rarity: 7
+  color: '#CCC'
+  faces: 14
+  category_id: 2
+
+two:
+  name: 'Diamond'
+  description: 'The rarest of them all'
+  shine: 9
+  price: 250.99
+  rarity: 9
+  color: '#CCC'
+  faces: 20
+  category_id: 2
