@@ -18,24 +18,42 @@
     };
   }]);
 
-        // $http.get('/apiv1/notes') // gets the notes and returns promises
-        // .success(function (data) {
-        //   $scope.notes = data;
-        // })
-        // .error(function (data, status) {
-        //   $scope.errors.push(data);
-        //   console.log(data);
-        //   console.log(status);
-        // });
-
-  app.controller('ReviewController', ['$scope', function ($scope) {
+  app.controller('ReviewController', ['$scope', '$http', function ($scope, $http) {
     $scope.review = {};
     $scope.addReview = function (product) {
-      $scope.review.createdOn = Date.now();
-      product.reviews.push($scope.review);
+      // $scope.review.createdOn = Date.now();
+      // product.reviews.push($scope.review);
+      $scope.review.product_id = product.id
+
+      $scope.create(product);
+
       $scope.review = {};
     };
+
+    $scope.create = function (product) {
+      $http.post('/reviews', {review: $scope.review})
+        .success(function (data) {
+          product.reviews.push(data.review)
+        })
+        .error(function(data, status) {
+          $scope.errors.push(data);
+          console.log(data);
+          console.log(status);
+        });
+    };
   }]);
+
+    // $scope.create = function (note) {
+    //   $http.post('/apiv1/notes', {note: note})
+    //     .success(function (data) {
+    //       $scope.notes.push(data); // Push created note to $scope.notes
+    //     })
+    //     .error(function(data, status) {
+    //       $scope.errors.push(data);
+    //       console.log(data);
+    //       console.log(status);
+    //     });
+    // };
 
   // var gems = [{
   //   name: 'Azurite',

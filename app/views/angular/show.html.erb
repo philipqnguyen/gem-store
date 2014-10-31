@@ -1,6 +1,7 @@
+<h1 class="site-title">FlatLanders' Gem Store</h1>
 <!--  Product Container  -->
-<div data-ng-controller="StoreController" data-ng-init="index()">
-  <div class="list-group-item" ng-repeat="product in products">
+<div data-ng-controller="StoreController" data-ng-init="index()" class="row">
+  <div class="list-group-item col-md-offset-2 col-md-8" ng-repeat="product in products">
     <h3>{{product.name}} <em class="pull-right">{{product.price | currency}}</em></h3>
 
     <!-- Image Gallery  -->
