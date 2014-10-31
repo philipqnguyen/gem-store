@@ -3,8 +3,9 @@
 
   app.controller('StoreController', ['$scope', '$http', function ($scope, $http) {
 
+    $scope.product = {};
     $scope.errors = [];
-    $scope.products = []
+    $scope.products = [];
 
     // this.products = gems;
     $scope.index = function () {
@@ -16,6 +17,62 @@
           $scope.errors.push(data);
         });
     };
+
+    $scope.create = function (product) {
+      $http.post('/products', {product: product})
+        .success(function (data) {
+          $scope.products.push(data.product);
+          console.log($scope.products);
+        })
+        .error(function (data, status) {
+          $scope.errors.push(data);
+          console.log(data);
+          console.log(status);
+        });
+    };
+
+    $scope.update = function (product) {
+      $http({
+        method: 'PATCH',
+        url: '/products/' + product.id,
+        data: product
+      })
+        .success(function () {
+          product.updating = false;
+        })
+        .error(function (data, status) {
+          $scope.errors.push(data);
+          console.log(data);
+          console.log(status);
+        });
+    };
+
+    $scope.destroy = function (product) {
+      $http({
+        method: 'DELETE',
+        url: '/products/' + product.id,
+      })
+        .success(function () {
+          $scope.products.splice($scope.products.indexOf(product), 1);
+        })
+        .errors(function () {
+          $scope.errors.push(data);
+          console.log(data);
+          console.log(status);
+        });
+    };
+
+    // $scope.create = function (note) {
+    //   $http.post('/apiv1/notes', {note: note})
+    //     .success(function (data) {
+    //       $scope.notes.push(data); // Push created note to $scope.notes
+    //     })
+    //     .error(function(data, status) {
+    //       $scope.errors.push(data);
+    //       console.log(data);
+    //       console.log(status);
+    //     });
+    // };
   }]);
 
   app.controller('ReviewController', ['$scope', '$http', function ($scope, $http) {
