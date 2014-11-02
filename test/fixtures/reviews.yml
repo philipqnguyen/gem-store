@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  id: 1
+  stars: 5
+  body: Amazing
+  author: good@good.com
+  product_id: 1
+
+two:
+  id: 2
+  stars: 3
+  body: Awesome
+  author: bob@bob.com
+  product_id: 1

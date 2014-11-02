@@ -47,4 +47,13 @@
       templateUrl: "product-specs.html"
     };
   });
+
+  // app.directive("productCreate", function () {
+  //   return {
+  //     scope: false,
+  //     transclude: false,
+  //     restrict: "A",
+  //     templateUrl: "product-create.html"
+  //   };
+  // });
 })();

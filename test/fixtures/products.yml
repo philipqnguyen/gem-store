@@ -1,6 +1,7 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
+  id: 1
   name: 'Azurite'
   description: 'Some gems have hidden qualities beyond their luster.'
   shine: 8
@@ -11,6 +12,7 @@ one:
   category_id: 2
 
 two:
+  id: 2
   name: 'Diamond'
   description: 'The rarest of them all'
   shine: 9
