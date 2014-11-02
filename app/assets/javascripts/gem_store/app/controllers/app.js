@@ -6,6 +6,8 @@
     $scope.product = {};
     $scope.errors = [];
     $scope.products = [];
+    $scope.categories = [];
+    $scope.categoryNames = [];
 
     // this.products = gems;
     $scope.index = function () {
@@ -19,6 +21,7 @@
     };
 
     $scope.create = function (product) {
+      product.category_id = $scope.categoryNames.indexOf(product.category_id)
       $http.post('/products', {product: product})
         .success(function (data) {
           $scope.products.push(data.product);
@@ -32,6 +35,7 @@
     };
 
     $scope.update = function (product) {
+      product.category_id = $scope.categoryNames.indexOf(product.category_id) + 1;
       $http({
         method: 'PATCH',
         url: '/products/' + product.id,
@@ -62,24 +66,74 @@
         });
     };
 
-    // $scope.create = function (note) {
-    //   $http.post('/apiv1/notes', {note: note})
-    //     .success(function (data) {
-    //       $scope.notes.push(data); // Push created note to $scope.notes
-    //     })
-    //     .error(function(data, status) {
-    //       $scope.errors.push(data);
-    //       console.log(data);
-    //       console.log(status);
-    //     });
-    // };
+    $scope.getCategories = function () {
+      $http.get('/categories')
+        .success(function (data) {
+          $scope.categories = data.categories;
+          for (var i = 0; i < data.categories.length; i++) {
+            $scope.categoryNames.push(data.categories[i].name);
+          };
+        })
+        .error(function (data, status) {
+          $scope.errors.push(data);
+          console.log(data);
+          console.log(status);
+        });
+    };
+
+    $scope.currentCategory = function (category) {
+      $scope.products = category.products;
+    };
+
+    $scope.createCategory = function (category) {
+      $http.post('/categories', {category: category})
+        .success(function (data) {
+          $scope.categories.push(data.category);
+          console.log($scope.categories);
+        })
+        .error(function (data, status) {
+          $scope.errors.push(data);
+          console.log(data);
+          console.log(status);
+        });
+    };
+
+    $scope.updateCategory = function (category) {
+      $http({
+        method: "PATCH",
+        url: '/categories/' + category.id,
+        data: category
+      })
+        .success(function (data) {
+          console.log(data);
+        })
+        .error(function (data, status) {
+          console.log(data);
+          console.log(status);
+        });
+    };
+
+    $scope.destroyCategory = function (category) {
+      $http({
+        method: "DELETE",
+        url: '/categories/' + category.id,
+        data: category
+      })
+        .success(function (data) {
+          $scope.categories.splice($scope.categories.indexOf(category), 1);
+        })
+        .error(function (data, status) {
+          $scope.errors.push(data);
+          console.log(data);
+          console.log(status);
+        });
+    };
   }]);
 
   app.controller('ReviewController', ['$scope', '$http', function ($scope, $http) {
     $scope.review = {};
     $scope.addReview = function (product) {
-      // $scope.review.createdOn = Date.now();
-      // product.reviews.push($scope.review);
+
       $scope.review.product_id = product.id
 
       $scope.create(product);
@@ -99,18 +153,6 @@
         });
     };
   }]);
-
-    // $scope.create = function (note) {
-    //   $http.post('/apiv1/notes', {note: note})
-    //     .success(function (data) {
-    //       $scope.notes.push(data); // Push created note to $scope.notes
-    //     })
-    //     .error(function(data, status) {
-    //       $scope.errors.push(data);
-    //       console.log(data);
-    //       console.log(status);
-    //     });
-    // };
 
   // var gems = [{
   //   name: 'Azurite',

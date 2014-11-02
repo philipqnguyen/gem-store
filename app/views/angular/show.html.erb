@@ -1,10 +1,42 @@
 <h1 class="site-title">FlatLanders' Gem Store</h1>
 <!--  Product Container  -->
 <div data-ng-controller="StoreController" data-ng-init="index()" class="row">
-  <a href class="btn btn-primary col-md-offset-2" data-ng-click="product.creating = true" data-ng-hide="product.creating">Create new product</a>
+  <a href class="btn btn-primary col-md-offset-2" data-ng-click="productCreating = true" data-ng-hide="productCreating">Create new product</a>
   <br><br>
-  <form name="productForm" data-ng-submit="productForm.$valid" novalidate class="col-md-8 col-md-offset-2" data-ng-show="product.creating">
+  <div class="col-md-offset-2">
+    <a href class="btn btn-primary" data-ng-click="viewingCategories = !viewingCategories">Categories</a><br><br>
+
+    <div data-ng-show="viewingCategories" data-ng-init="getCategories()" >
+      <a href data-ng-click="creatingCategory = !creatingCategory" data-ng-hide="creatingCategory">Create new category</a><br>
+
+      <form data-ng-show="creatingCategory" data-ng-submit="productForm.$valid" novalidate>
+        <label class="col-md-2">Category Name:</label>
+        <input data-ng-model="category.name" type="text"> <br><br>
+        <button type="submit" class="btn btn-primary col-md-2 col-md-offset-1" data-ng-click="createCategory(category); creatingCategory = false" data-ng-show="creatingCategory">Create Category</button>
+        <a href class="btn btn-primary col-md-2 col-md-offset-1" data-ng-click="creatingCategory = false" data-ng-show="creatingCategory">Cancel</a><br><br>
+      </form>
+      <br>
+      <a href data-ng-click="index()">All</a>
+      <div data-ng-repeat="category in categories">
+        <a href data-ng-click="currentCategory(category)">{{category.name}}</a>
+        <a href data-ng-click="editingCategory = true" data-ng-hide="editingCategory">Edit</a>
+
+        <input data-ng-show="editingCategory" type="text" data-ng-model="category.name">
+        <button data-ng-click="updateCategory(category)" data-ng-click="editingCategory = false" data-ng-show="editingCategory">Update</button>
+        <a href data-ng-click="editingCategory = false" data-ng-show="editingCategory">Cancel</a>
+
+        <a href data-ng-click="destroyCategory(category)">Delete</a>
+      </div>
+      <br>
+    </div>
+  </div>
+
+  <form name="productForm" data-ng-submit="productForm.$valid" novalidate class="col-md-8 col-md-offset-2" data-ng-show="productCreating">
     <h2>Create new product</h2>
+    <label class="col-md-2">Category:</label>
+    <select data-ng-model="product.category_id" class="col-md-offset-1" data-ng-options="names for names in categoryNames">
+      <option value="">Select category</option>
+    </select><br><br>
     <label class="col-md-2">Name:</label>
     <input data-ng-model="product.name" type="text" class="col-md-offset-1" required /><br>
     <label class="col-md-2">Description:</label>
@@ -19,8 +51,8 @@
     <input data-ng-model="product.color" type="text" class="col-md-offset-1" required><br>
     <label class="col-md-2">Faces</label>
     <input data-ng-model="product.faces" type="number" class="col-md-offset-1" required><br><br>
-    <button type="submit" class="btn btn-primary col-md-2" data-ng-click="create(product); product.creating = false">Submit Product</button>
-    <a href class="btn btn-danger col-md-2 col-md-offset-1" data-ng-click="product.creating = false" data-ng-show="product.creating">Cancel</a>
+    <button type="submit" class="btn btn-primary col-md-2" data-ng-click="create(product); productCreating = false">Submit Product</button>
+    <a href class="btn btn-danger col-md-2 col-md-offset-1" data-ng-click="productCreating = false" data-ng-show="productCreating">Cancel</a>
     <br><br><br>
   </form>
 
@@ -30,9 +62,17 @@
       <a href class="col-md-1" data-ng-click="destroy(product)">Delete</a>
     </div>
 
+<!-- <select ng-model="review.stars" class="form-control" ng-options="stars for stars in [5,4,3,2,1]" title="Stars" required>
+  <option value="">Rate the Product</option>
+</select> -->
+
     <div class="row">
       <form name="productForm" data-ng-submit="productForm.$valid" novalidate class="col-md-8 col-md-offset-2" data-ng-show="product.updating">
         <h3>Update product</h3>
+        <label class="col-md-2">Category:</label>
+        <select data-ng-model="product.category_id" class="col-md-offset-1" data-ng-options="names for names in categoryNames">
+          <option value="">Select category</option>
+        </select><br><br>
         <label class="col-md-2">Name:</label>
         <input data-ng-model="product.name" type="text" class="col-md-offset-1" required /><br>
         <label class="col-md-2">Description:</label>
