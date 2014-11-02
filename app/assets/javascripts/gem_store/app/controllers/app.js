@@ -21,7 +21,15 @@
     };
 
     $scope.create = function (product) {
-      product.category_id = $scope.categoryNames.indexOf(product.category_id)
+      // product.category_id = $scope.categoryNames.indexOf(product.category_id)
+
+      for(var i = 0; i < $scope.categories.length; i++) {
+        if(product.category_id === $scope.categories[i].name) {
+          product.category_id = $scope.categories[i].id;
+          break;
+        }
+      }
+
       $http.post('/products', {product: product})
         .success(function (data) {
           $scope.products.push(data.product);
@@ -35,7 +43,13 @@
     };
 
     $scope.update = function (product) {
-      product.category_id = $scope.categoryNames.indexOf(product.category_id) + 1;
+      for(var i = 0; i < $scope.categories.length; i++) {
+        if(product.category_id === $scope.categories[i].name) {
+          product.category_id = $scope.categories[i].id;
+          break;
+        }
+      }
+
       $http({
         method: 'PATCH',
         url: '/products/' + product.id,
